@@ -15,7 +15,7 @@
             <ColumnDefinition Width="635"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel  Background="#FF898DCC" >
+        <StackPanel  Background="#FFD39DEF" >
             <StackPanel Height="36" Margin="5,5,5,5" Background="#FF9BDCDC" Orientation="Horizontal">
                 <Label Content="紅茶大杯" FontSize="14"  VerticalContentAlignment="Center"   Height="26" FontWeight="Bold" Foreground="Brown" />
                 <Label Content="60元" FontSize="14"  VerticalContentAlignment="Center"   Height="26" FontWeight="Bold" Foreground="#FF348B6C" />
