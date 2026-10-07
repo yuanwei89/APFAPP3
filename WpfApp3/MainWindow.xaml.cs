@@ -1,14 +1,7 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+﻿using System.Windows;
+using Microsoft.Win32;
+using System.Collections.Generic;
+using System.IO;
 namespace WpfApp3
 {
     /// <summary>
@@ -16,39 +9,36 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        Dictionary<string, int> drinks = new Dictionary<string, int>();  
         public MainWindow()
         {
             InitializeComponent();
+
+            //讀取飲料品項    
+            AddDrinksItems(drinks);
         }
 
-        // 對應 XAML 裡的 TextChanged 事件
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+         private void AddDrinksItems(Dictionary<string, int> drinks)
         {
-            var targetTextBox = sender as TextBox;
-            var targetStackPanel = targetTextBox.Parent as StackPanel;
-            var targetNameLabel = targetStackPanel.Children[0] as Label;
-            var targetPriceLabel = targetStackPanel.Children[1] as Label;
+            OpenFileDialog ofd  = new OpenFileDialog();
+            ofd.Title = "選擇飲料品項檔案";
+            ofd.Filter = "CSV檔案|*.csv|所有檔案|*.*";
+            if (ofd.ShowDialog() == true)
+            {
+                string fileName = ofd.FileName;
+                string[] lines = File.ReadAllLines(fileName);   
 
-            int amount;
-            bool success = int.TryParse(targetTextBox.Text, out amount);
-            if (!success)
-            {
-                MessageBox.Show("請輸入正確數字", "輸入錯誤");
-                //targetTextBox.Text = "";
-            }
-            else
-            {
-                string drinKName = targetNameLabel.Content.ToString();
-                int price = Convert.ToInt32(targetPriceLabel.Content.ToString().Substring(0, 2));
-                //MessageBox.Show($"您選擇的飲料是 {drinKName}，數量是 {amount} 杯，總金額是 {price * amount} 元", "訂購資訊");
-                ResultTextBlock.Text += $"您選擇的飲料是 {drinKName}，數量是 {amount} 杯，總金額是 {price * amount} 元\n";
+
+                foreach (var line in lines) 
+                {
+                    string[] tokens = line.Split(',');
+                    string drinkName = tokens[0];
+                    int price = int.Parse(tokens[1]); 
+                }
             }
         }
 
-        // 對應 XAML 裡按鈕的 Click 事件
-        private void OrderButton_click(object sender, RoutedEventArgs e)
-        {
-            // 未來這裡可以寫按下訂購後要執行的計算邏輯
-        }
+
     }
 }
