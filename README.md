@@ -10,7 +10,7 @@
 ## 開發技術
 - **語言：** C#
 - **介面框架：** .NET WPF (XAML)
-- **開發環境：** Visual Studio 2022
+- **開發環境：** Visual Studio 2026
 
 ## 如何執行
 1. 將此專案 Clone 到本機：`git clone [請替換成你的GitHub專案網址]`
